@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:todolist/model/task_model.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -60,6 +61,25 @@ class Services {
         ],
       ),
     );
+  }
+
+  Future<List<TaskModel>> getTodos() async {
+    List totalTasksList = await web3client.call(
+      contract: contract!,
+      function: taskCount!,
+      params: [],
+    );
+    final list = <TaskModel>[];
+    BigInt totalTasks = totalTasksList[0];
+    for (var i = 0; i < totalTasks.toInt(); i++) {
+      var temp = await web3client.call(
+        contract: contract!,
+        function: todos!,
+        params: [BigInt.from(i)],
+      );
+      list.add(TaskModel(name: temp[0], isCompleted: temp[1]));
+    }
+    return list;
   }
 
   Future<void> getAbi() async {

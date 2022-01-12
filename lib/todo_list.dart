@@ -23,14 +23,10 @@ class TodoList extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) => const ListTile(
-                      title: Text('listModel.todos[index].taskName'),
+                    itemCount: provider.tasks.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(provider.tasks[index].name),
                     ),
-                    // itemCount: listModel.taskCount,
-                    // itemBuilder: (context, index) => ListTile(
-                    //   title: Text(listModel.todos[index].taskName),
-                    // ),
                   ),
                 ),
                 Expanded(

@@ -1,6 +1,6 @@
 class TaskModel {
   final String name;
-  final String isCompleted;
+  final bool isCompleted;
   TaskModel({
     required this.name,
     required this.isCompleted,
