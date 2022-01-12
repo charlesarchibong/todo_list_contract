@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/provider/todo_provider.dart';
 import 'package:todolist/todo_list.dart';
 
 void main() {
@@ -10,9 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: TodoList(),
+    return ChangeNotifierProvider<TodoProvider>(
+      create: (context) => TodoProvider(),
+      builder: (context, snapshot) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          home: TodoList(),
+        );
+      },
     );
   }
 }
